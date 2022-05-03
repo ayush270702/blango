@@ -1,18 +1,18 @@
 {% extends "base.html" %}
+{% load blog_extras %}
 {% block content %}
-<h2>Index Template</h2>
-<div class="alert alert-warning" role="alert">
-  A simple warning alert—check it out!
-</div>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<button type="button" class="btn btn-dark">Dark</button>
+    <h2>Blog Posts</h2>
+    {% for post in posts %}
+    <div class="row">
+        <div class="col">
+            <h3>{{ post.title }}</h3>
+            <small>By {{ post.author|author_details:request.user }} on {{ post.published_at|date:"M, d Y" }}</small>
+            <p>{{ post.summary }}</p>
+            <p>
+                ({{ post.content|wordcount }} words)
+                <a href="#">Read More</a>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}
